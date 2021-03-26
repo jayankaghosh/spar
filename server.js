@@ -8,10 +8,13 @@ const rendererConfig = require('./src/renderer-config');
 const authenticator = require('./src/authenticator');
 
 const sendResponse = (res, code, headers, body) => {
-    headers['X-Powered-By'] = pkg.name;
-    delete headers['set-cookie'];
     res.status(code);
-    res.set(headers);
+    res.set({
+	'X-Powered-By': pkg.name,
+	'Content-Type': headers['content-type'] || 'text/html',
+	'Content-Length': headers['content-length'] || body.length,
+	'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0'
+    });
     res.send(body);
 }
 
