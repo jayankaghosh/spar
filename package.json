@@ -1,0 +1,21 @@
+{
+  "name": "spar",
+  "version": "1.0.0",
+  "description": "SPA Renderer",
+  "main": "server.js",
+  "dependencies": {
+    "chrome-aws-lambda": "^8.0.0",
+    "express": "^4.17.1",
+    "format-unicorn": "^1.1.1",
+    "pm2": "^4.5.5",
+    "puppeteer-core": "^8.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "pm2-start": "pm2 start --name \"SPAR\" npm -- start"
+  },
+  "author": "Jayanka Ghosh <jayankaghosh@gmail.com> (https://github.com/jayankaghosh)",
+  "license": "ISC"
+}
