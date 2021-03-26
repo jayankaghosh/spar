@@ -9,6 +9,7 @@ const authenticator = require('./src/authenticator');
 
 const sendResponse = (res, code, headers, body) => {
     headers['X-Powered-By'] = pkg.name;
+    delete headers['set-cookie'];
     res.status(code);
     res.set(headers);
     res.send(body);
