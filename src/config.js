@@ -9,5 +9,10 @@ module.exports = {
     args: [
         '--no-sandbox'
     ],
-    tokens: []
-}
+    tokens: [],
+    db: {
+        url: "mongodb://localhost:27017",
+        database: 'spar'
+    },
+    cacheLifetime: 1800
+};

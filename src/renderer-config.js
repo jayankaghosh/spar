@@ -26,7 +26,8 @@ const stripPage = () => {
     }
 };
 
-module.exports = (config) => {
+module.exports = (user, defaultConfig) => {
+    const config = { ...defaultConfig };
     if (!config.evaluate) config.evaluate = [];
     config.evaluate.push(injectBaseHref);
     config.evaluate.push(stripPage);
