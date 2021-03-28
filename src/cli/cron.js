@@ -12,9 +12,9 @@ class Cron {
                 idsToDelete.push(record.id);
             }
         });
-        if (idsToDelete > 0) {
+        if (idsToDelete.length > 0) {
             await db.delete(db.getCollectionTypes().PAGE_CACHE, { id: { $in: idsToDelete } });
-            logger.log(`Deleted URLs\n${ idsToDelete.join('\n') }`)
+            logger.log(`Deleted URLs\n\n${ idsToDelete.join('\n\n') }`)
         } else {
             logger.log(`No URLs expired`);
         }

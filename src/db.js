@@ -22,7 +22,9 @@ class Database {
     }
 
     async disconnect() {
-        await this.client.close();
+        if (this.client) {
+            await this.client.close();
+        }
         this.db = this.client = null;
         return this;
     }
@@ -44,6 +46,9 @@ class Database {
     }
 
     async save(collection, document, lifetime) {
+        if (!document.id) {
+            throw 'Can\'t save document without "id"';
+        }
         const db = await this.connect();
         const query = { id: document.id };
         if (!lifetime) {

@@ -35,19 +35,20 @@ app.all('/api*', async (req, res) => {
 app.get('*', async (req, res) => {
 
     try {
-        const user = authenticator.authenticate(req);
+        const user = await authenticator.authenticate(req);
         const url = req.originalUrl.substring(1);
-        logger.log(`> [${ user.token }] ${ req.method } ${ url } START`);
+        const identity = `${ user.matchedToken } <${ user.email }>`;
+        logger.log(`> [${ identity }] ${ req.method } ${ url } START`);
 
 
         const pageCacheCollection = db.getCollectionTypes().PAGE_CACHE;
         let result = await db.findById(pageCacheCollection, url);
         let response = {};
         if (result) {
-            logger.log(`> [${ user.token }] ${ req.method } ${ url } CACHE FOUND`);
+            logger.log(`> [${ identity }] ${ req.method } ${ url } CACHE FOUND`);
             response = result.response;
         } else {
-            logger.log(`> [${ user.token }] ${ req.method } ${ url } CACHE NOT FOUND. RENDERING`);
+            logger.log(`> [${ identity }] ${ req.method } ${ url } CACHE NOT FOUND. RENDERING`);
             response = await renderer.render(url, rendererConfig(user, config));
             const headers = response.headers;
             response.headers = {
@@ -58,6 +59,7 @@ app.get('*', async (req, res) => {
             if (response.statusCode >= 200 && response.statusCode < 300) {
                 db.save(pageCacheCollection, {
                     id: url,
+                    token: user.matchedToken,
                     response
                 });
             }
@@ -70,7 +72,7 @@ app.get('*', async (req, res) => {
             response.content || ''
         );
 
-        logger.log(`> [${ user.token }] ${ req.method } ${ url } STOP (${ response.statusCode })`);
+        logger.log(`> [${ identity }] ${ req.method } ${ url } STOP (${ response.statusCode })`);
     } catch (e) {
         logger.log(`> ${ e }`);
         sendResponse(res, 401, {

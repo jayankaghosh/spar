@@ -9,10 +9,10 @@ module.exports = {
     args: [
         '--no-sandbox'
     ],
-    tokens: [],
     db: {
         url: "mongodb://localhost:27017",
         database: 'spar'
     },
-    cacheLifetime: 1800
+    cacheLifetime: 1800,
+    encryption_key: '__some_random_text__'
 };

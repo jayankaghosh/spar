@@ -9,7 +9,8 @@
     "format-unicorn": "^1.1.1",
     "mongodb": "^3.6.5",
     "pm2": "^4.5.5",
-    "puppeteer-core": "^8.0.0"
+    "puppeteer-core": "^8.0.0",
+    "readline-sync": "^1.4.10"
   },
   "devDependencies": {},
   "scripts": {
