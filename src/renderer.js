@@ -21,6 +21,9 @@ class Renderer {
                     height: config.height,
                     isMobile: config.isMobile,
                 });
+
+                await page.setUserAgent(config.userAgent);
+
                 const response = await page.goto(url,  {
                     timeout: config.timeout,
                     waitUntil: config.waitUntil,
