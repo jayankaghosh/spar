@@ -14,5 +14,6 @@ module.exports = {
         database: 'spar'
     },
     cacheLifetime: 1800,
+    noVerifyUserToken: true,
     encryption_key: '__some_random_text__'
 };
